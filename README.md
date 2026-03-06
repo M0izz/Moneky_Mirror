@@ -1,102 +1,63 @@
-# 🐒 Monkey Mirror
+# Monkey Mirror 🐒
 
-A real-time AI-powered webcam app that detects your body language and facial expressions using **MediaPipe Holistic** and mirrors back the matching monkey meme — live.
-
----
-
-## ✨ Features
-
-- 🖐️ **21-point finger tracking** per hand — exact fingertip positions
-- 😀 **468-point face mesh** — precise lip, chin, and smile detection
-- 🏃 **33-point body pose** — shoulder, elbow, and wrist positions
-- ⚡ **8 gesture-triggered monkey reactions** with smooth fade transitions
-- 🎭 **Pre-rendered meme overlays** for high-performance real-time playback
+a lil side project i made to mess around with computer vision. basically your webcam watches your face + hands and swaps in a monkey reaction meme depending on what you're doing lol
 
 ---
 
-## 🎭 Gesture Map
+## what it does
 
-| Gesture | Trigger |
-|---------|---------|
-| 🪑 **Idle** (`monkey.png`) | Default — sitting still |
-| 🤔 **Thinking** (`thinking.png`) | Right index finger near lips (center) |
-| 😈 **Evil Plan** (`evil.png`) | Smiling + both hands pressed together |
-| ☝️ **Idea** (`idea.png`) | One finger raised above shoulder |
-| 🤓 **Nerd** (`nerd.png`) | Hand on chin OR both hands low (reading) |
-| 🧠 **Neuron Activation** (`neuron.png`) | Leaning forward toward camera |
-| 😏 **Wink** (`wink.png`) | Right finger near the right side of lips |
-| 😱 **Scared** (`scared.png`) | Both hands on chest, upright posture |
+it tracks your body in real time and picks one of 8 monkey images based on your pose/expression
+
+| what you do | what appears |
+|-------------|-------------|
+| just sitting there | 🐒 base monkey |
+| right finger on lips | 🤔 thinking monkey |
+| smile + hands pressed together | 😈 evil plan monkey |
+| one finger pointed up | ☝️ idea monkey |
+| hand on chin / pretending to read | 🤓 nerd monkey |
+| lean toward the camera | 🧠 neuron activation |
+| finger on the side of your lips | 😏 wink monkey |
+| both hands on chest | 😱 scared monkey |
 
 ---
 
-## 🚀 Getting Started
+## stuff used
 
-### Prerequisites
-- Python 3.9+
-- A webcam
+- **MediaPipe Holistic** — does all the heavy lifting (21-point hand tracking, 468-point face mesh, full body pose)
+- **OpenCV** — grabs the webcam feed and handles frame processing
+- **Pillow** — renders the meme images and draws captions on them
+- **NumPy** — math for landmark distances and gesture logic
+- **Tkinter** — the display window
 
-### Installation
+---
+
+## run it yourself
 
 ```bash
-# Clone the repo
-git clone https://github.com/YOUR_USERNAME/monkey-mirror.git
-cd monkey-mirror
+git clone https://github.com/M0izz/Moneky_Mirror.git
+cd Moneky_Mirror
 
-# Create & activate virtual environment
 python -m venv .venv
+.venv\Scripts\activate      # windows
+# source .venv/bin/activate  # mac/linux
 
-# Windows
-.venv\Scripts\activate
-
-# macOS / Linux
-source .venv/bin/activate
-
-# Install dependencies
 pip install -r requirements.txt
-```
-
-### Run
-
-```bash
 python main.py
 ```
 
-Press **`q`** to quit.
+press `q` to quit
 
 ---
 
-## 📁 Project Structure
+## how the gesture detection works
 
-```
-monkey-mirror/
-├── assets/              # Monkey PNG images (8 variants)
-│   ├── monkey.png       # Base image (idle)
-│   ├── thinking.png
-│   ├── evil.png
-│   ├── idea.png
-│   ├── nerd.png
-│   ├── neuron.png
-│   ├── wink.png
-│   └── scared.png
-├── hand_tracker.py      # MediaPipe Holistic gesture detection
-├── meme_engine.py       # Meme variant renderer
-├── overlay_engine.py    # Smooth fade engine
-├── ui.py                # Tkinter display window
-├── main.py              # Entry point
-└── requirements.txt
-```
+uses MediaPipe's holistic model which gives you 3 sets of landmarks at once:
+- **face mesh** (468 pts) → exact lip/chin/smile positions
+- **hand tracking** (21 pts per hand) → individual fingertip positions  
+- **body pose** (33 pts) → shoulder/elbow/wrist positions
+
+smile detection specifically works by measuring mouth width vs height — if the ratio is above a threshold, you're smiling
 
 ---
 
-## 🛠️ Built With
-
-- [MediaPipe](https://mediapipe.dev/) — Holistic landmark detection
-- [OpenCV](https://opencv.org/) — Camera capture & image processing
-- [Pillow](https://pillow.readthedocs.io/) — Image rendering & captions
-- [NumPy](https://numpy.org/) — Numeric operations
-
----
-
-## 📄 License
-
-MIT License — feel free to use, modify, and share!
+made this mostly to learn how mediapipe works. turned out to be pretty fun
