@@ -15,13 +15,12 @@ it tracks your body in real time and picks one of 8 monkey images based on your 
 | smile + hands pressed together | 😈 evil plan monkey |
 | one finger pointed up | ☝️ idea monkey |
 | hand on chin / pretending to read | 🤓 nerd monkey |
-| lean toward the camera | 🧠 neuron activation |
 | finger on the side of your lips | 😏 wink monkey |
 | both hands on chest | 😱 scared monkey |
 
 ---
 
-## stuff used
+## Tech stack
 
 - **MediaPipe Holistic** — does all the heavy lifting (21-point hand tracking, 468-point face mesh, full body pose)
 - **OpenCV** — grabs the webcam feed and handles frame processing
